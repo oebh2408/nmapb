@@ -17,7 +17,7 @@ CREATE TABLE cliente(
 
 CREATE TABLE cuentabancaria(
     id_cuenta BIGINT(100) NOT NULL PRIMARY KEY,
-    fk_id_sede BIGINT(100) NOT NULL,
+    fk_name_sede VARCHAR(100) NOT NULL,
     fk_num_identificacion BIGINT(100) NOT NULL,
     fecha_apertura DATE NOT NULL,
     saldo BIGINT(100) NOT NULL,
@@ -42,20 +42,18 @@ CREATE TABLE empleado(
     apellidos VARCHAR(100) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
     telefono BIGINT(100) NOT NULL,
-    fk_id_sede BIGINT(100) NOT NULL
+    fk_name_sede VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE sede(
-    id_sede BIGINT(100) NOT NULL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    name_sede VARCHAR(100) NOT NULL PRIMARY KEY,
     direccion VARCHAR(100) NOT NULL,
     telefono BIGINT(100) NOT NULL,
-    fk_id_ciudad BIGINT(100) NOT NULL
+    fk_name_ciudad VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE ciudad(
-    id_ciudad BIGINT(100) NOT NULL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    name_ciudad VARCHAR(100) NOT NULL PRIMARY KEY,
     cantidad_sucursales BIGINT(100) NOT NULL
 );
 
@@ -63,14 +61,14 @@ CREATE TABLE contrato(
     id_contrato BIGINT(100) NOT NULL PRIMARY KEY,
     tipo_contrato VARCHAR(100) NOT NULL,
     descripcion VARCHAR(100) NOT NULL,
-    fk_id_sede BIGINT(100) NOT NULL,
+    fk_name_sede VARCHAR(100) NOT NULL,
     fk_id_empleado BIGINT(100) NOT NULL
 );
 
 ALTER TABLE cuentabancaria
 ADD
-CONSTRAINT CB_S FOREIGN KEY(fk_id_sede)
-REFERENCES sede(id_sede);
+CONSTRAINT CB_S FOREIGN KEY(fk_name_sede)
+REFERENCES sede(name_sede);
 
 ALTER TABLE cuentabancaria
 ADD
@@ -89,18 +87,18 @@ REFERENCES empleado(num_identificacion);
 
 ALTER TABLE empleado
 ADD
-CONSTRAINT E_S FOREIGN KEY(fk_id_sede)
-REFERENCES sede(id_sede);
+CONSTRAINT E_S FOREIGN KEY(fk_name_sede)
+REFERENCES sede(name_sede);
 
 ALTER TABLE sede
 ADD
-CONSTRAINT S_C FOREIGN KEY(fk_id_ciudad)
-REFERENCES ciudad(id_ciudad);
+CONSTRAINT S_C FOREIGN KEY(fk_name_ciudad)
+REFERENCES ciudad(name_ciudad);
 
 ALTER TABLE contrato
 ADD
-CONSTRAINT C_S FOREIGN KEY(fk_id_sede)
-REFERENCES sede(id_sede);
+CONSTRAINT C_S FOREIGN KEY(fk_name_sede)
+REFERENCES sede(name_sede);
 
 ALTER TABLE contrato
 ADD

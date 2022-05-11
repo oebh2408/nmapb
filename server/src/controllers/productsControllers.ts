@@ -15,9 +15,9 @@ class ProductsController {
 
     public async create(req: Request, res: Response): Promise<void> {
       try {
-        await Mysql.query("INSERT INTO cliente set ?",[req.body]);
+        await Mysql.query("INSERT INTO cuentabancaria set ?",[req.body]);
         res.json({
-          message: "Cliente Creado",
+          message: "Cuenta Creada",
         });
       } catch(error) {
         console.log("Error: " + error);
@@ -27,9 +27,9 @@ class ProductsController {
 
     public async delete(req: Request, res: Response): Promise<void> {
       try {
-        await Mysql.query("DELETE FROM cliente WHERE num_identificacion=?",[req.params.num_id]);
+        await Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?",[req.params.num_id]);
         res.json({
-          message: "Cliente Eliminado",
+          message: "Cuenta Eliminada ID" + req.params.id_cuenta,
         });
       } catch(error) {
         console.log("Error: " + error);
@@ -38,9 +38,9 @@ class ProductsController {
 
     public async update(req: Request, res: Response): Promise<void> {
       try {
-        await Mysql.query("UPDATE cliente set ? WHERE num_identificacion=?",[req.body, req.params.num_id]);
+        await Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?",[req.body, req.params.num_id]);
         res.json({
-          message: "Cliente Actualizado",
+          message: "Cuenta Actualizada ID "+ req.params.id_cuenta,
         });
       } catch(error) {
         console.log("Error: " + error);

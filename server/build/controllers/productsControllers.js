@@ -27,9 +27,9 @@ class ProductsController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query("INSERT INTO cliente set ?", [req.body]);
+                yield database_1.Mysql.query("INSERT INTO cuentabancaria set ?", [req.body]);
                 res.json({
-                    message: "Cliente Creado",
+                    message: "Cuenta Creada",
                 });
             }
             catch (error) {
@@ -40,9 +40,9 @@ class ProductsController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query("DELETE FROM cliente WHERE num_identificacion=?", [req.params.num_id]);
+                yield database_1.Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?", [req.params.num_id]);
                 res.json({
-                    message: "Cliente Eliminado",
+                    message: "Cuenta Eliminada ID" + req.params.id_cuenta,
                 });
             }
             catch (error) {
@@ -53,9 +53,9 @@ class ProductsController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query("UPDATE cliente set ? WHERE num_identificacion=?", [req.body, req.params.num_id]);
+                yield database_1.Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?", [req.body, req.params.num_id]);
                 res.json({
-                    message: "Cliente Actualizado",
+                    message: "Cuenta Actualizada ID " + req.params.id_cuenta,
                 });
             }
             catch (error) {

@@ -10,8 +10,8 @@ class ProductsRoutes {
     config() {
         this.router.get('/', productsControllers_1.productsController.list);
         this.router.post('/', productsControllers_1.productsController.create);
-        this.router.delete('/:num_id', productsControllers_1.productsController.delete);
-        this.router.put('/:num_id', productsControllers_1.productsController.update);
+        this.router.delete('/:id_cuenta', productsControllers_1.productsController.delete);
+        this.router.put('/:id_cuenta', productsControllers_1.productsController.update);
     }
 }
 const productsRoutes = new ProductsRoutes();
