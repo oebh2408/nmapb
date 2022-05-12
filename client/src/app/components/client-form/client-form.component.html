@@ -1,0 +1,57 @@
+<div class="col-md-5" *ngFor="let client of clients">
+    <div class="row">
+        <div class="form-floating mb-3 d-flex justify-content-between align-items-center">
+            <input type="text" class="form-control" id="busquedaCliente">
+            <label for="busquedaCliente">Número de Identificación del Cliente...</label>
+            <button type="submit" class="btn btn-primary m-3">Buscar</button>
+        </div>       
+    </div>
+    <hr>
+    <form>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="num_identificacion" class="form-label">Número de Identificación</label>
+            <input class="form-control" id="disabledInput" type="text" placeholder="Número de Identificación..." disabled>
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="nombres" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="nombres" value="oscar">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="apellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fecha_nacimiento">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="tipo_identificacion" class="form-label">Tipo de Identificación</label>
+            <input type="text" class="form-control" id="tipo_identificacion">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="pais_nacimiento" class="form-label">Pais de Nacimiento</label>
+            <input type="text" class="form-control" id="pais_nacimiento">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="estado_civil" class="form-label">Estado Civil</label>
+            <input type="text" class="form-control" id="estado_civil">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+        <div class="mb-2 d-flex justify-content-between align-items-center">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="number" class="form-control" id="telefono">
+          </div>
+        <div class="botones">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary">Eliminar</button>
+        </div>
+      </form>
+</div>
