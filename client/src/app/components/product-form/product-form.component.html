@@ -1,1 +1,66 @@
-<p>product-form works!</p>
+<div class="row">
+    <div class="col-mb-12">
+        <button type="submit" class="btn btn-success" (click)="getProduct()">Cargar Datos</button>
+        <button type="submit" class="btn btn-primary" (click)="crearCuenta()">Crear Cuenta</button>
+    </div>
+</div>
+<form>
+    <div class="mb-2">
+        <label for="id_cuenta" class="form-label">Número de Cuenta</label>
+        <div *ngIf="estado ; else Habilitado1">
+            <input class="form-control" id="disabledInput" [(ngModel)]="id_cuenta" name="id_cuenta" type="number" placeholder="Número de Cuenta..." disabled required>
+        </div>
+        <ng-template #Habilitado1>
+            <input type="number" class="form-control" id="id_cuenta" [(ngModel)]="id_cuenta" name="id_cuenta" required>
+        </ng-template>
+    </div>
+    <div class="mb-2">
+        <label for="sede" class="form-label">Sede</label>
+        <div *ngIf="estado ; else Habilitado2">
+            <input class="form-control" id="disabledInput" [(ngModel)]="sede" name="sede" type="text" placeholder="Sede..." disabled required>
+        </div>
+        <ng-template #Habilitado2>
+            <input type="text" class="form-control" id="sede" [(ngModel)]="sede" name="sede" required>
+        </ng-template>
+    </div>
+    <div class="mb-2">
+        <label for="num_identificacion" class="form-label">Número de Cuenta</label>
+        <div *ngIf="estado ; else Habilitado3">
+            <input class="form-control" id="disabledInput" [(ngModel)]="num_identificacion" name="num_identificacion" type="number" placeholder="Número de Identificación Cliente..." disabled required>
+        </div>
+        <ng-template #Habilitado3>
+            <input type="number" class="form-control" id="num_identificacion" [(ngModel)]="num_identificacion" name="num_identificacion" required>
+        </ng-template>
+    </div>
+    <div class="mb-2">
+        <label for="fecha_apertura" class="form-label">Fecha de Apertura</label>
+        <input type="date" class="form-control" id="fecha_apertura" [(ngModel)]="fecha_apertura" name="fecha_apertura" required>
+    </div>
+    
+    <div class="mb-2">
+        <label for="saldo" class="form-label">Saldo</label>
+        <input type="number" class="form-control" id="saldo" [(ngModel)]="saldo" name="saldo" required>
+    </div>
+    <div class="mb-2">
+        <label for="cuota_manejo" class="form-label">Cuota de Manejo</label>
+        <input type="number" class="form-control" id="cuota_manejo" [(ngModel)]="cuota_manejo" name="cuota_manejo" required>
+    </div>
+    <div class="mb-2">
+        <label for="transc_virtuales" class="form-label">Transacciones Virtuales</label>
+        <input type="text" class="form-control" id="transc_virtuales" [(ngModel)]="transc_virtuales" name="transc_virtuales" required>
+    </div>
+    <div class="mb-2">
+        <label for="monto_max_retiros" class="form-label">Monto Máximo de Retiros</label>
+        <input type="number" class="form-control" id="monto_max_retiros" [(ngModel)]="monto_max_retiros" name="monto_max_retiros" required>
+    </div>
+    <div class="mb-2">
+        <label for="estado_cuenta" class="form-label">Estado de la Cuenta</label>
+        <input type="text" class="form-control" id="estado_cuenta" [(ngModel)]="estado_cuenta" name="estado_cuenta" required>
+    </div>
+
+    <div class="botones">
+        <button type="submit" class="btn btn-success" (click)="saveProduct()">Agregar</button>
+        <button type="submit" class="btn btn-primary" (click)="updateProduct()">Actualizar</button>
+        <button type="submit" class="btn btn-danger" (click)="deleteProduct()" >Eliminar</button>
+    </div>
+  </form>

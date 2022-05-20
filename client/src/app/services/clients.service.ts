@@ -13,20 +13,20 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
-  getClient() {
-    return this.http.get('http://localhost:3000/clients/');
+  getClient(num_id: number) {
+    return this.http.get(`${this.API_URL}/clients/${num_id}`);
   }
 
   saveClient(client: Client) {
-    return this.http.post('${this.API_URL}/clients', client);
+    return this.http.post(`${this.API_URL}/clients`, client);
   }
 
   updateClient(num_id: string, updatedClient: Client): Observable<Client> {
-    return this.http.put('${this.API_URL}/clients/${num_id}', updatedClient);
+    return this.http.put(`${this.API_URL}/clients/${num_id}`, updatedClient);
   }
 
   deleteClient(num_id: string) {
-    return this.http.delete('${this.API_URL}/clients/${num_id}');
+    return this.http.delete(`${this.API_URL}/clients/${num_id}`);
   }
 
 }

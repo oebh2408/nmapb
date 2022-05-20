@@ -9,6 +9,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ClientsService } from './services/clients.service';
+import { FormsModule } from '@angular/forms'
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import { ClientsService } from './services/clients.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
-    ClientsService
+    ClientsService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

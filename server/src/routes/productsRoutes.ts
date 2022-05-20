@@ -10,7 +10,8 @@ class ProductsRoutes {
     }
 
     config(): void {
-        this.router.get('/', productsController.list);
+        this.router.get('/:num_id', productsController.list);
+        this.router.get('/esp/:id_cuenta', productsController.getP);
         this.router.post('/', productsController.create);
         this.router.delete('/:id_cuenta', productsController.delete);
         this.router.put('/:id_cuenta', productsController.update)

@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import indexRoutes from './routes/indexRoutes';
 import clientsRoutes from './routes/clientsRoutes';
-import productsRoutes from './routes/clientsRoutes';
+import productsRoutes from './routes/productsRoutes';
 
 class Server {
 

@@ -1,1 +1,30 @@
-<p>product-list works!</p>
+<div class="row">
+
+    <div class="col-mb-12">
+        <h2>Lista de Productos</h2>
+        <div class="row">
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-success" (click)="traerBusqueda()">Buscar</button>
+            </div>
+        </div>
+
+        <div *ngIf="consulto">
+            <div *ngIf="tamano > 0 ; else Empty">
+                <ul class="list-group" *ngFor="let cuenta of cuentas">
+                    <li (click)="seleccionCuenta(cuenta)" class="list-group-item">Cuenta No. {{cuenta}}</li>
+                </ul>
+            </div>
+            <ng-template #Empty>
+                <ul class="list-group">
+                    <li (click)="seleccionCuenta(1)" class="list-group-item">No hay cuentas para este cliente, haga click sobre esto para crear una.</li>
+                </ul>
+            </ng-template>
+        </div>
+
+
+
+    </div>
+    <div class="col-mb-12" *ngIf="cuentaWork">
+        <app-product-form [cuentaWork]="cuentaWork"></app-product-form>
+    </div>
+</div>

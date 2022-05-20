@@ -15,9 +15,19 @@ class ProductsController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const products = yield database_1.Mysql.query("SELECT * FROM cuentabancaria");
-                console.log(products);
-                res.json(products[0]);
+                const products = yield database_1.Mysql.query("SELECT * FROM cuentabancaria WHERE fk_num_identificacion=?", [req.params.num_id]);
+                res.json(products);
+            }
+            catch (error) {
+                console.log("Error DB: " + error);
+            }
+        });
+    }
+    getP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const product = yield database_1.Mysql.query("SELECT * FROM cuentabancaria WHERE id_cuenta=?", [req.params.id_cuenta]);
+                res.json(product);
             }
             catch (error) {
                 console.log("Error DB: " + error);
@@ -40,7 +50,7 @@ class ProductsController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?", [req.params.num_id]);
+                yield database_1.Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?", [req.params.id_cuenta]);
                 res.json({
                     message: "Cuenta Eliminada ID" + req.params.id_cuenta,
                 });
@@ -53,7 +63,7 @@ class ProductsController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?", [req.body, req.params.num_id]);
+                yield database_1.Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?", [req.body, req.params.id_cuenta]);
                 res.json({
                     message: "Cuenta Actualizada ID " + req.params.id_cuenta,
                 });
