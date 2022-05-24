@@ -39,6 +39,10 @@ export class ClientFormComponent implements OnInit {
 
   }
 
+  getSucursales() {
+    
+  }
+
   getClient() {
     this.clientsService.getClient(this.busquedaCliente).subscribe(
       res => {
