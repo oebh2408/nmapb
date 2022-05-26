@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const clientsRoutes_1 = __importDefault(require("./routes/clientsRoutes"));
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
+const sedesRoutes_1 = __importDefault(require("./routes/sedesRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -24,6 +25,7 @@ class Server {
     }
     routes() {
         this.app.use('/', indexRoutes_1.default);
+        this.app.use('/sedes', sedesRoutes_1.default);
         this.app.use('/clients', clientsRoutes_1.default);
         this.app.use('/products', productsRoutes_1.default);
     }

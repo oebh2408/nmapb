@@ -10,7 +10,8 @@ class ClientsController {
           console.log(clients);
           res.json(clients[0]);
         } catch (error) {
-          console.log("Error DB: " + error);
+          console.log(error);
+          res.json({message: "Error"});
         }
     }
 
@@ -23,7 +24,8 @@ class ClientsController {
         }
         res.status(404).json({text: 'El cliente no existe'});
       } catch (error) {
-        console.log("Error DB: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
 
@@ -34,7 +36,8 @@ class ClientsController {
           message: "Cliente Creado",
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
       
     }
@@ -46,7 +49,8 @@ class ClientsController {
           message: "Cliente Eliminado",
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
 
@@ -57,9 +61,12 @@ class ClientsController {
           message: "Cliente Actualizado",
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
+
+    
 }
 
 export const clientsController = new ClientsController();

@@ -51,17 +51,18 @@
             <div class="mb-2">
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="number" class="form-control" id="telefono" [(ngModel)]="telefono" name="telefono" required>
-              </div>
-            <div class="botones">
-                <button type="submit" class="btn btn-success" (click)="saveClient()" >Agregar</button>
-                <button type="submit" class="btn btn-primary" (click)="updateClient()">Actualizar</button>
-                <button type="submit" class="btn btn-danger"  (click)="deleteClient()">Eliminar</button>
-                <button type="submit" class="btn btn-primary" (click)="habilitarCliente()">Crear Cliente</button>
+          </div>
+            
+            <div class="row">
+                <button type="submit" class="btn btn-success col-md-2 m-2" (click)="saveClient()" >Agregar</button>
+                <button type="submit" class="btn btn-primary col-md-3 m-2" (click)="updateClient()">Actualizar</button>
+                <button type="submit" class="btn btn-danger col-md-2 m-2"  (click)="deleteClient()">Eliminar</button>
+                <button type="submit" class="btn btn-primary col-md-3 m-2" (click)="habilitarCliente()">Habilitar Casillas</button>
             </div>
           </form>
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-6" style="margin-left:3rem ;">
         <div class="row">
             <div class="col-md-12">
                 <app-product-list></app-product-list>
@@ -69,3 +70,8 @@
         </div>
     </div>
 </div>
+
+
+
+
+

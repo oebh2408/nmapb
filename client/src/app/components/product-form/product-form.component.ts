@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { DatePipe } from '@angular/common';
+import { SedesService } from 'src/app/services/sedes.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-product-form',
@@ -10,6 +13,10 @@ import { DatePipe } from '@angular/common';
 export class ProductFormComponent implements OnInit {
 
   @Input() cuentaWork!: number;  
+
+  resp_sede: any;
+  tamano_sede: any;
+  sedes: any = [];
 
   respuesta: any;
   id_cuenta: any;
@@ -26,12 +33,31 @@ export class ProductFormComponent implements OnInit {
   crear: any;
   cuenta: any;
 
-  constructor(private productsService: ProductsService, private datePipe: DatePipe) { }
+  constructor(private productsService: ProductsService, private datePipe: DatePipe, private sedesService: SedesService) { }
 
   ngOnInit(): void {
-
+    this.getSedes();
   }
 
+  getSedes() {
+
+    var dato;
+    this.sedesService.getSedes().subscribe(
+      res => {
+        this.resp_sede = res;
+        this.tamano_sede = this.resp_sede.length;
+        this.sedes = [];
+        for (let i = 0; i < this.tamano_sede; i++) {
+          dato = this.resp_sede[i].name_sede;
+          this.sedes.push(dato);
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
+  
   getProduct() {
     this.estado = true;
     this.productsService.getProduct(this.cuentaWork).subscribe(
@@ -59,7 +85,7 @@ export class ProductFormComponent implements OnInit {
   crearCuenta() {
     this.estado = false;
     this.habilitarProducto();
-
+    this.getId();
   }
 
   saveProduct() {
@@ -80,15 +106,22 @@ export class ProductFormComponent implements OnInit {
     if (comprobado == true) {
       this.productsService.saveProduct(producto).subscribe(
         res => {
-          console.log(res);
+          var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cuenta Creada'){
+              this.alertSuccess();
+            } else {
+               this.alertFail();
+            }
         },
         err => console.error(err)
       );
       this.habilitarProducto();
     } else {
       console.log("No se pudo agregar")
-    }
-    this.habilitarProducto();
+    } 
+    
+    this.habilitarProducto(); 
   }
 
   updateProduct() {
@@ -109,13 +142,19 @@ export class ProductFormComponent implements OnInit {
     if (comprobado == true) {
       this.productsService.updateProduct(this.id_cuenta, producto).subscribe(
         res => {
-          console.log(res);
+          var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cuenta Actualizada'){
+              this.alertSuccess();
+            } else {
+               this.alertFail();
+            }
         },
         err => console.error(err)
       );
       this.habilitarProducto();
     } else {
-      console.log("No se pudo agregar")
+      this.alertFail();
     }
     this.habilitarProducto();
   }
@@ -123,21 +162,47 @@ export class ProductFormComponent implements OnInit {
   deleteProduct() {
     this.productsService.deleteProduct(this.id_cuenta).subscribe(
       res => {
-        console.log(res);
+        var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cuenta Eliminada'){
+              this.habilitarProducto();
+              this.alertSuccess();
+            } else {
+               this.alertUnknown();
+            }
       },
       err => {
         console.error(err);
       }
     );
-    this.habilitarProducto();
+  }
+
+  getId() {
+    this.productsService.getProduct(this.cuentaWork).subscribe(
+      res => {
+        this.respuesta = res;  
+        this.num_identificacion = this.respuesta[0][0].fk_num_identificacion;
+      },
+      err => console.error(err)
+    );
   }
 
  //Funciones extras
+
+ alertSuccess(){
+  Swal.fire('Transacción Exitosa','Lo solicitado se ha ejecutado correctamente','success');
+}
+alertFail() {
+  Swal.fire('Error', 'No se pudo realizar la transacción deseada, revisa el contenido y vuelve a enviar','error' );
+}
+alertUnknown() {
+  Swal.fire('Error', 'Cuenta desconocida! ingresa una válida', 'error');
+}
+
   habilitarProducto() {
     this.estado=false;
     this.id_cuenta = null;
     this.sede = null;
-    this.num_identificacion = null;
     this.fecha_apertura = null;
     this.saldo = null;
     this.cuota_manejo = null;
@@ -148,16 +213,18 @@ export class ProductFormComponent implements OnInit {
 
   comprobation() {
     var comprobacion = false;
-    if (this.id_cuenta.toString().length >= 2 && this.id_cuenta.toString().length <= 10){
-      if (this.sede.length >= 2 && isNaN(this.sede) == true){
-        if (this.num_identificacion.toString().length >= 2 && this.num_identificacion.toString().length <= 10) {
-          if (this.fecha_apertura != null) {
-            if (this.saldo.toString().length >= 2 && this.saldo.toString().length <= 10) {
-              if (this.cuota_manejo.toString().length >= 2 && this.cuota_manejo.toString().length <= 10) {
-                if (this.transc_virtuales.length >= 1 && isNaN(this.transc_virtuales) == true) {
-                  if (this.monto_max_retiros.toString().length >= 2 && this.monto_max_retiros.toString().length <= 10) {
-                    if (this.estado_cuenta.length >= 1 && isNaN(this.estado_cuenta) == true) {                      
-                        comprobacion = true;
+    try {
+      if (this.id_cuenta.toString().length >= 2 && this.id_cuenta.toString().length <= 10){
+        if (this.sede.length >= 2 && isNaN(this.sede) == true){
+          if (this.num_identificacion.toString().length >= 2 && this.num_identificacion.toString().length <= 10) {
+            if (this.fecha_apertura != null) {
+              if (this.saldo.toString().length >= 2 && this.saldo.toString().length <= 10) {
+                if (this.cuota_manejo.toString().length >= 2 && this.cuota_manejo.toString().length <= 10) {
+                  if (this.transc_virtuales.length >= 1 && isNaN(this.transc_virtuales) == true) {
+                    if (this.monto_max_retiros.toString().length >= 2 && this.monto_max_retiros.toString().length <= 10) {
+                      if (this.estado_cuenta.length >= 1 && isNaN(this.estado_cuenta) == true) {                      
+                          comprobacion = true;
+                      }
                     }
                   }
                 }
@@ -166,9 +233,13 @@ export class ProductFormComponent implements OnInit {
           }
         }
       }
+    } catch (error) {
+      return comprobacion;
     }
     return comprobacion;
   }
+
+
 }
 
 

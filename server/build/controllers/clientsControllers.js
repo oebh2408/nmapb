@@ -20,7 +20,8 @@ class ClientsController {
                 res.json(clients[0]);
             }
             catch (error) {
-                console.log("Error DB: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -35,7 +36,8 @@ class ClientsController {
                 res.status(404).json({ text: 'El cliente no existe' });
             }
             catch (error) {
-                console.log("Error DB: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -48,7 +50,8 @@ class ClientsController {
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -61,7 +64,8 @@ class ClientsController {
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -74,7 +78,8 @@ class ClientsController {
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }

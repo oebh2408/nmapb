@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { ClientsService } from '../../services/clients.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-client-form',
@@ -38,14 +40,12 @@ export class ClientFormComponent implements OnInit {
   ngOnInit() {
 
   }
-
-  getSucursales() {
-    
-  }
+                                                     
 
   getClient() {
     this.clientsService.getClient(this.busquedaCliente).subscribe(
       res => {
+        try {
           this.respuesta = res;
           this.num_identificacion = this.respuesta[0].num_identificacion;
           this.nombres = this.respuesta[0].nombres;
@@ -63,6 +63,10 @@ export class ClientFormComponent implements OnInit {
           this.telefono = this.respuesta[0].telefono;
           this.estado = true;
           console.log(res);
+        } catch (error) {
+          this.alertUnknown();
+        }
+          
       },
       err => console.error(err)
     );
@@ -88,13 +92,19 @@ export class ClientFormComponent implements OnInit {
     if (comprobado == true) {
       this.clientsService.saveClient(cliente).subscribe(
         res => {
-          console.log(res);
+            var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cliente Creado'){
+              this.alertSuccess();
+            } else {
+               this.alertFail();
+            }
         },
         err => console.error(err)
       );
       this.habilitarCliente();
     } else {
-      console.log("No se pudo agregar")
+      this.alertFail();
     }
     
   }
@@ -112,25 +122,52 @@ export class ClientFormComponent implements OnInit {
       'email': this.email,
       'telefono': this.telefono
     }
-      this.clientsService.updateClient(cliente.num_identificacion, cliente).subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.error(err);
-        }
-      );
+      var comprobado = this.comprobation();
+      if (comprobado == true) {
+        this.clientsService.updateClient(cliente.num_identificacion, cliente).subscribe(
+          res => {
+            var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cliente Actualizado'){
+              this.alertSuccess();
+            } else {
+               this.alertFail();
+            }
+          },
+          err => {
+            console.error(err);
+          }
+        );
+      } else {
+        this.alertFail();
+      }
   }
 
   deleteClient() {
     this.clientsService.deleteClient(this.num_identificacion).subscribe(
       res => {
-        console.log(res);
+        var respuesta: any = [];
+            respuesta = res;
+            if (respuesta.message == 'Cliente Eliminado'){
+              this.alertSuccess();
+              this.habilitarCliente();
+            } else {
+               this.alertUnknown();
+            }
       },
       err => {
         console.error(err);
-      }
-    )
+      });  
+  }
+
+  alertSuccess(){
+    Swal.fire('Transacción Exitosa','Lo solicitado se ha ejecutado correctamente','success');
+  }
+  alertFail() {
+    Swal.fire('Error', 'No se pudo realizar la transacción deseada, revisa el contenido y vuelve a enviar','error' );
+  }
+  alertUnknown() {
+    Swal.fire('Error', 'Cliente desconocido! ingresa uno válido', 'error');
   }
 
 
@@ -150,17 +187,19 @@ export class ClientFormComponent implements OnInit {
 
   comprobation() {
     var comprobacion = false;
-    if (this.num_identificacion.toString().length >= 5 && this.num_identificacion.toString().length <= 10){
-      if (this.nombres.length >= 2 && isNaN(this.nombres) == true){
-        if (this.apellidos.length >= 2 && isNaN(this.apellidos) == true) {
-          if (this.fecha_nacimiento != null) {
-            if (this.tipo_identificacion.length >= 2 && isNaN(this.tipo_identificacion) == true) {
-              if (this.pais_nacimiento.length >= 2 && isNaN(this.pais_nacimiento) == true) {
-                if (this.estado_civil.length >= 2 && isNaN(this.estado_civil) == true) {
-                  if (this.direccion.length >= 2 && isNaN(this.direccion) == true ) {
-                    if (this.email.length >= 2 && isNaN(this.email) == true) {
-                      if (this.telefono.toString().length >= 2 && this.telefono.toString().length) {
-                        comprobacion = true;
+    try {
+      if (this.num_identificacion.toString().length >= 5 && this.num_identificacion.toString().length <= 10){
+        if (this.nombres.length >= 2 && isNaN(this.nombres) == true){
+          if (this.apellidos.length >= 2 && isNaN(this.apellidos) == true) {
+            if (this.fecha_nacimiento != null) {
+              if (this.tipo_identificacion.length >= 2 && isNaN(this.tipo_identificacion) == true) {
+                if (this.pais_nacimiento.length >= 2 && isNaN(this.pais_nacimiento) == true) {
+                  if (this.estado_civil.length >= 2 && isNaN(this.estado_civil) == true) {
+                    if (this.direccion.length >= 2 && isNaN(this.direccion) == true ) {
+                      if (this.email.length >= 2 && isNaN(this.email) == true) {
+                        if (this.telefono.toString().length >= 2 && this.telefono.toString().length) {
+                          comprobacion = true;
+                        }
                       }
                     }
                   }
@@ -170,6 +209,8 @@ export class ClientFormComponent implements OnInit {
           }
         }
       }
+    } catch (error) {
+      return comprobacion;
     }
     return comprobacion;
   }

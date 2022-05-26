@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-mb-12">
-        <button type="submit" class="btn btn-success" (click)="getProduct()">Cargar Datos</button>
-        <button type="submit" class="btn btn-primary" (click)="crearCuenta()">Crear Cuenta</button>
+        <button type="submit" class="btn btn-success col-md-5 m-4" (click)="getProduct()">Cargar Datos</button>
+        <button type="submit" class="btn btn-primary col-md-5 m-3" (click)="crearCuenta()">Habilitar Casillas</button>
     </div>
 </div>
 <form>
@@ -20,18 +20,13 @@
             <input class="form-control" id="disabledInput" [(ngModel)]="sede" name="sede" type="text" placeholder="Sede..." disabled required>
         </div>
         <ng-template #Habilitado2>
-            <input type="text" class="form-control" id="sede" [(ngModel)]="sede" name="sede" required>
+            <select name="sede" id="sede" class="form-select form-select-sm" [(ngModel)]="sede">
+                
+                <option *ngFor="let sede of sedes" value="{{sede}}">{{sede}}</option> 
+            </select>
         </ng-template>
     </div>
-    <div class="mb-2">
-        <label for="num_identificacion" class="form-label">Número de Cuenta</label>
-        <div *ngIf="estado ; else Habilitado3">
-            <input class="form-control" id="disabledInput" [(ngModel)]="num_identificacion" name="num_identificacion" type="number" placeholder="Número de Identificación Cliente..." disabled required>
-        </div>
-        <ng-template #Habilitado3>
-            <input type="number" class="form-control" id="num_identificacion" [(ngModel)]="num_identificacion" name="num_identificacion" required>
-        </ng-template>
-    </div>
+
     <div class="mb-2">
         <label for="fecha_apertura" class="form-label">Fecha de Apertura</label>
         <input type="date" class="form-control" id="fecha_apertura" [(ngModel)]="fecha_apertura" name="fecha_apertura" required>
@@ -58,9 +53,9 @@
         <input type="text" class="form-control" id="estado_cuenta" [(ngModel)]="estado_cuenta" name="estado_cuenta" required>
     </div>
 
-    <div class="botones">
-        <button type="submit" class="btn btn-success" (click)="saveProduct()">Agregar</button>
-        <button type="submit" class="btn btn-primary" (click)="updateProduct()">Actualizar</button>
-        <button type="submit" class="btn btn-danger" (click)="deleteProduct()" >Eliminar</button>
+    <div class="row">
+        <button type="submit" class="btn btn-success col-md-3 m-2" (click)="saveProduct()">Agregar</button>
+        <button type="submit" class="btn btn-primary col-md-3 m-2" (click)="updateProduct()">Actualizar</button>
+        <button type="submit" class="btn btn-danger col-md-3 m-2" (click)="deleteProduct()" >Eliminar</button>
     </div>
   </form>

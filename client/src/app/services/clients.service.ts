@@ -16,6 +16,10 @@ export class ClientsService {
   getClient(num_id: number) {
     return this.http.get(`${this.API_URL}/clients/${num_id}`);
   }
+  
+  getSedes() {
+    return this.http.get(`${this.API_URL}/sedes`);
+  }
 
   saveClient(client: Client) {
     return this.http.post(`${this.API_URL}/clients`, client);

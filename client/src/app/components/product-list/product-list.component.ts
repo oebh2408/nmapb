@@ -30,6 +30,7 @@ export class ProductListComponent implements OnInit {
       res => {
         this.datosAPI = res;
         this.tamano = this.datosAPI[0].length;
+        this.cuentas = [];
         for (let i = 0; i < this.tamano; i++) {
           this.dato = this.datosAPI[0][i].id_cuenta.toString();
           this.cuentas.push(parseInt(this.dato));

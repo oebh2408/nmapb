@@ -19,7 +19,8 @@ class ProductsController {
                 res.json(products);
             }
             catch (error) {
-                console.log("Error DB: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -30,7 +31,8 @@ class ProductsController {
                 res.json(product);
             }
             catch (error) {
-                console.log("Error DB: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -43,7 +45,8 @@ class ProductsController {
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -52,11 +55,12 @@ class ProductsController {
             try {
                 yield database_1.Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?", [req.params.id_cuenta]);
                 res.json({
-                    message: "Cuenta Eliminada ID" + req.params.id_cuenta,
+                    message: "Cuenta Eliminada"
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }
@@ -65,11 +69,12 @@ class ProductsController {
             try {
                 yield database_1.Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?", [req.body, req.params.id_cuenta]);
                 res.json({
-                    message: "Cuenta Actualizada ID " + req.params.id_cuenta,
+                    message: "Cuenta Actualizada"
                 });
             }
             catch (error) {
-                console.log("Error: " + error);
+                console.log(error);
+                res.json({ message: "Error" });
             }
         });
     }

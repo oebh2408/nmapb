@@ -8,7 +8,8 @@ class ProductsController {
           const products = await Mysql.query("SELECT * FROM cuentabancaria WHERE fk_num_identificacion=?", [req.params.num_id]);
           res.json(products);
         } catch (error) {
-          console.log("Error DB: " + error);
+          console.log(error);
+          res.json({message: "Error"});
         }
     }
 
@@ -17,7 +18,8 @@ class ProductsController {
         const product = await Mysql.query("SELECT * FROM cuentabancaria WHERE id_cuenta=?", [req.params.id_cuenta]);
         res.json(product);
       } catch (error) {
-        console.log("Error DB: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
 
@@ -28,7 +30,8 @@ class ProductsController {
           message: "Cuenta Creada",
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
       
     }
@@ -37,10 +40,11 @@ class ProductsController {
       try {
         await Mysql.query("DELETE FROM cuentabancaria WHERE id_cuenta=?",[req.params.id_cuenta]);
         res.json({
-          message: "Cuenta Eliminada ID" + req.params.id_cuenta,
+          message: "Cuenta Eliminada"
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
 
@@ -48,10 +52,11 @@ class ProductsController {
       try {
         await Mysql.query("UPDATE cuentabancaria set ? WHERE id_cuenta=?",[req.body, req.params.id_cuenta]);
         res.json({
-          message: "Cuenta Actualizada ID "+ req.params.id_cuenta,
+          message: "Cuenta Actualizada"
         });
       } catch(error) {
-        console.log("Error: " + error);
+        console.log(error);
+        res.json({message: "Error"});
       }
     }
 }
